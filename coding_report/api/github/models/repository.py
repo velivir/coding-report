@@ -88,13 +88,13 @@ class Repository(BaseModel):
     size: int
     stargazers_count: int
     watchers_count: int
-    language: str
+    language: Optional[str]
     has_issues: bool
     has_projects: bool
     has_downloads: bool
     has_wiki: bool
     has_pages: bool
-    forks_count: bool
+    forks_count: int
     mirror_url: Optional[str]
     archived: bool
     disabled: bool
