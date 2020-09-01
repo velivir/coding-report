@@ -22,3 +22,12 @@ def fetch_repos_list(github_login: str, github_api_token: str) -> Optional[Mappi
         github_api_token=github_api_token,
         relative_url=f'/users/{github_login}/repos',
     )
+
+
+def fetch_repo_info(github_login: str, github_api_token: str, owner: str, repo_name: str):
+    """Fetches detailed information about a repository."""
+    return fetch_data_from_github(
+        github_login=github_login,
+        github_api_token=github_api_token,
+        relative_url=f'/repos/{owner}/{repo_name}',
+    )
