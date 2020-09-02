@@ -1,6 +1,10 @@
+import datetime
 from typing import List
 
+import apprise
+
 from coding_report.api.github.github import fetch_repos_list
+from coding_report.settings import get_settings
 from coding_report.statistics import (
     RepositoryStatistics,
     collect_coding_statistics_for_today,
@@ -10,10 +14,16 @@ from coding_report.statistics import (
 
 def main() -> None:
     """Entry point."""
+    settings = get_settings()
     raw_repos_content = fetch_repos_list()
     repositories_updated_today = get_repositories_updated_today(raw_repos_content)
     github_statistics = collect_coding_statistics_for_today(repositories_updated_today)
-    create_report_message(github_statistics)
+    report_message = create_report_message(github_statistics)
+    send_report_message_to_telegram(
+        telegram_token=settings.telegram_token,
+        report_message=report_message,
+        date=str(datetime.datetime.today().date()),
+    )
 
 
 def create_report_message(github_statistics: List[RepositoryStatistics]) -> str:
@@ -35,6 +45,16 @@ def create_report_message(github_statistics: List[RepositoryStatistics]) -> str:
             ),
         )
     return ''.join(message)
+
+
+def send_report_message_to_telegram(telegram_token: str, report_message: str, date: str) -> None:
+    """Sends coding statistics to Telegram."""
+    apobj = apprise.Apprise()
+    apobj.add(f'tgram://{telegram_token}/')
+    apobj.notify(
+        body=report_message,
+        title=f'Статистика кодинга за {date}',
+    )
 
 
 if __name__ == '__main__':
