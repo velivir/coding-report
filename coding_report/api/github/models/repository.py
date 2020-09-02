@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import List, Optional
 
 from pydantic import BaseModel
 
@@ -15,6 +15,14 @@ class Permissions(BaseModel):
     pull: bool
 
 
+class License(BaseModel):
+    key: str
+    name: str
+    spdx_id: str
+    url: str
+    node_id: str
+
+
 class Repository(BaseModel):
     id: int
     node_id: str
@@ -23,7 +31,7 @@ class Repository(BaseModel):
     private: bool
     owner: Owner
     html_url: str
-    description: str
+    description: Optional[str]
     fork: bool
     url: str
     forks_url: str
@@ -84,7 +92,7 @@ class Repository(BaseModel):
     archived: bool
     disabled: bool
     open_issues_count: int
-    license: Optional[str]
+    license: Optional[License]
     forks: int
     open_issues: int
     watchers: int
