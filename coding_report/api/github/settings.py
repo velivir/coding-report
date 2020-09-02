@@ -6,6 +6,7 @@ class Settings(BaseSettings):
 
     github_login: str = Field(env='GITHUB_LOGIN')
     github_token: str = Field(env='GITHUB_TOKEN')
+    repo_owner: str = Field(env='REPO_OWNER')
 
 
 def get_settings() -> Settings:
