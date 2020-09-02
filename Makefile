@@ -5,7 +5,6 @@ dev_install:
 		poetry install
 
 lint:
-		poetry run isort . --recursive
 		poetry run mypy coding_report
 		poetry run flake8 coding_report
 
