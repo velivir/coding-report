@@ -6,12 +6,12 @@ import apprise
 from coding_report.api.github.github import fetch_repos_list
 from coding_report.api.wakatime.wakatime import fetch_durations_from_wakatime
 from coding_report.settings import get_settings
-from coding_report.statistics import (
+from coding_report.statistics.github_statistics import (
     RepositoryStatistics,
     collect_coding_statistics_for_today,
     get_repositories_updated_today,
 )
-from coding_report.wakatime_statistics import calculate_coding_duration
+from coding_report.statistics.wakatime_statistics import calculate_coding_duration
 
 
 def main() -> None:  # noqa: WPS210
