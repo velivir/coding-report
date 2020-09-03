@@ -11,7 +11,9 @@ from coding_report.statistics.github_statistics import (
     collect_coding_statistics_for_today,
     get_repositories_updated_today,
 )
-from coding_report.statistics.wakatime_statistics import calculate_coding_duration
+from coding_report.statistics.wakatime_statistics import (
+    calculate_coding_duration,
+)
 
 
 def main() -> None:  # noqa: WPS210
@@ -53,14 +55,15 @@ def create_report_message(github_statistics: List[RepositoryStatistics], wakatim
                 ),
             )
         message.append(
-            'Репозиторий - {repository_name}\nСделано {commit_count} коммитов: \n{commit_names}\n\n'.format(
+            'Github\n\nРепозиторий - {repository_name}\nКоммитов - {commit_count}: \n{commit_names}\n\n'.format(
                 repository_name=repository_statistics.name,
                 commit_count=len(commits_msg),
                 commit_names=''.join(commits_msg),
             ),
         )
     message.append(
-        'Wakatime - {duration}'.format(
+        '{splitter}\nWakatime - {duration}'.format(
+            splitter=10 * '-',
             duration=convert_seconds_to_hours(wakatime_statistics),
         ),
     )
