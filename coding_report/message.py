@@ -18,7 +18,7 @@ def generate_message_with_github_statistics(github_statistics) -> List[str]:
                 ),
             )
         message.append(
-            'Github\n\nРепозиторий - {repository_name}\nКоммитов - {commit_count}: \n{commit_names}\n\n'.format(
+            'Репозиторий - {repository_name}\nКоммитов - {commit_count}: \n{commit_names}\n\n'.format(
                 repository_name=repository_statistics.name,
                 commit_count=len(commits_msg),
                 commit_names=''.join(commits_msg),
@@ -29,8 +29,7 @@ def generate_message_with_github_statistics(github_statistics) -> List[str]:
 
 def generate_message_with_wakatime_statistics(wakatime_statistics: float) -> str:
     """Generates a message with wakatime statistics."""
-    return '{splitter}\nWakatime - {duration}'.format(
-        splitter=10 * '-',
+    return 'Продолжительность кодинга по Wakatime - {duration}'.format(
         duration=convert_seconds_to_hours(wakatime_statistics),
     )
 
